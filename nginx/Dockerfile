@@ -1,34 +1,36 @@
-# Set the base image to Ubuntu
-FROM ubuntu
+FROM alpine:3.1
 
-# File Author / Maintainer
-MAINTAINER xxdesmus
+MAINTAINER John Allen <john.allen@connexiolabs.com>
 
-# Install Nginx
+ENV NGINX_VERSION nginx-1.7.11
 
-# Add application repository URL to the default sources
-# RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
+RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
+    mkdir -p /tmp/src && \
+    cd /tmp/src && \
+    wget http://nginx.org/download/${NGINX_VERSION}.tar.gz && \
+    tar -zxvf ${NGINX_VERSION}.tar.gz && \
+    cd /tmp/src/${NGINX_VERSION} && \
+    ./configure \
+        --with-http_ssl_module \
+        --with-http_gzip_static_module \
+        --prefix=/etc/nginx \
+        --http-log-path=/var/log/nginx/access.log \
+        --error-log-path=/var/log/nginx/error.log \
+        --sbin-path=/usr/local/sbin/nginx && \
+    make && \
+    make install && \
+    apk del build-base && \
+    rm -rf /tmp/src && \
+    rm -rf /var/cache/apk/*
 
-# Update the repository
-RUN apt-get update
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Install necessary tools
-RUN apt-get install -y nano wget dialog net-tools
+VOLUME ["/var/log/nginx"]
 
-# Download and Install Nginx
-RUN apt-get install -y nginx  
+WORKDIR /etc/nginx
 
-# Remove the default Nginx configuration file
-#RUN rm -v /etc/nginx/nginx.conf
-
-# Copy a configuration file from the current directory
-#ADD nginx.conf /etc/nginx/
-
-# Append "daemon off;" to the configuration file
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-
-# Expose ports
 EXPOSE 80
 
-# Set the default command to execute when creating a new container
-CMD service nginx start
+CMD ["nginx", "-g", "daemon off;"]
