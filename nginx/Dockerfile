@@ -27,8 +27,21 @@ RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
+# Define mountable directories.
 VOLUME ["/var/log/nginx"]
 
+# Remove the default Nginx configuration file
+#RUN rm -v /etc/nginx/nginx.conf
+
+# Copy a configuration file from the current directory
+ADD nginx.conf /etc/nginx/
+
+# delete default, copy over local webpage from local folder to root of server
+RUN rm -v /etc/nginx/html/index.html
+ADD html/index.html /etc/nginx/html
+
+
+# Define working directory.
 WORKDIR /etc/nginx
 
 EXPOSE 80
