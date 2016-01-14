@@ -1,4 +1,4 @@
-###$ This is a simple docker-compose script to host a website powered by nginx on a Tor hidden service.
+### This is a simple docker-compose script to host a website powered by nginx on a Tor hidden service.
 
 Build status: [![Circle CI](https://circleci.com/gh/xxdesmus/Nginx-TorHiddenService.svg?style=svg)](https://circleci.com/gh/xxdesmus/Nginx-TorHiddenService)
 
