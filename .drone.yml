@@ -1,8 +1,0 @@
-image: xxdesmus/nginx_alpine
-script:
-  - docker run -d --name nginx -p 80:80 xxdesmus/nginx_alpine
-
-notify:
-    email:
-    recipients:
-      - xxdesmus@gmail.com
