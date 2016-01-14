@@ -1,14 +1,6 @@
-machine:
-    services:
-        - docker
-
-dependencies:
-    override:
-        - sudo pip install -U docker-compose
-
-test:
-    override:
-        - docker-compose up -d
+image: dockerfile/nginx
+script:
+  - echo hello world
 
 notify:
     email:
