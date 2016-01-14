@@ -4,7 +4,7 @@ env:
   DOCKER_COMPOSE_VERSION: 1.4.2
 
 services:
-        - docker
+  - docker
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -12,10 +12,5 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-dependencies:
-    override:
-        - sudo pip install -U docker-compose
-
 test:
-    override:
-        - docker-compose up -d
+  - docker-compose up -d
