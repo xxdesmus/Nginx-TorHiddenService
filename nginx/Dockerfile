@@ -16,7 +16,7 @@ ADD nginx.conf /etc/nginx/
 
 # delete default, copy over local webpage from local folder to root of server
 RUN rm -v /usr/share/nginx/html/index.html
-ADD html/index.html /usr/share/nginx/html/
+ADD html/* /usr/share/nginx/html/
 
 # Define working directory.
 WORKDIR /etc/nginx
