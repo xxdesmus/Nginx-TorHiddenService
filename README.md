@@ -8,7 +8,7 @@ Assumptions:
 
 1. ```git clone git@github.com:xxdesmus/Nginx-TorHiddenService.git```
 2. ```cd nginx/html```
-3. edit index.html however you'd like to
+3. edit index.html and place any other files you need for the website into this directory.
 4. ```docker build -t PickNameHere/nginx_alpine .```
 5. Test that nginx is working with your webpage -> ```docker run -d --name nginx -p 80:80 PickNameHere/nginx_alpine```
 6. ```docker ps``` -> get the container ID -> ```docker stop container ID```
