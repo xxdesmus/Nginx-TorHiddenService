@@ -1,6 +1,6 @@
-image: dockerfile/nginx
+image: xxdesmus/nginx_alpine
 script:
-  - echo hello world
+  - docker run -d --name nginx -p 80:80 xxdesmus/nginx_alpine
 
 notify:
     email:
