@@ -1,0 +1,16 @@
+machine:
+    services:
+        - docker
+
+dependencies:
+    override:
+        - sudo pip install -U docker-compose
+
+test:
+    override:
+        - docker-compose up -d
+
+notify:
+    email:
+    recipients:
+      - xxdesmus@gmail.com
